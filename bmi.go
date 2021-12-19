@@ -1,31 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"strconv"
-	"strings"
-
 	"github.com/mikemando/bmi-calculator/name"
 )
 
 func main() {
 	// Application info
-	fmt.Println(name.AppName)
-	fmt.Println(name.LineBreak)
+	name.AppInfo()
 	// Prompt user for Height and Weight input
-	fmt.Print(name.HeightInput)
-	userHeight, _ := inputReader.ReadString('\n')
+	height, weight := userMetrics()
 
-	fmt.Print(name.WeightInput)
-	userWeight, _ := inputReader.ReadString('\n')
+	bmi := calculateBMI(height, weight)
 
-	userHeight = strings.Replace(userHeight, "\n", "", -1)
-	userWeight = strings.Replace(userWeight, "\n", "", -1)
+	displayBMI(bmi)
+}
 
-	height, _ := strconv.ParseFloat(userHeight, 64)
-	weight, _ := strconv.ParseFloat(userWeight, 64)
-
-	bmi := weight / (height * height)
-
-	fmt.Printf("Your BMI is %.2f", bmi)
+func calculateBMI(height float64, weight float64) float64 {
+	return weight / (height * height)
 }
